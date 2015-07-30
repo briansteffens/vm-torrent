@@ -26,8 +26,8 @@ iptables -A INPUT -i tun0 -s 192.168.0.0/16 -j REJECT
 iptables -A OUTPUT -o tun0 -d 192.168.0.0/16 -j REJECT
 
 # Traffic over the VPN to other networks is fine if outgoing.
-iptables -A OUTPUT -o tun0 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-iptables -A INPUT -i tun0 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o tun0 -j ACCEPT
+iptables -A INPUT -i tun0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Allow deluge-web UI from NAT
 iptables -A INPUT -i eth0 -s 10.0.2.2/32 -p tcp --dport 8112 -j ACCEPT
