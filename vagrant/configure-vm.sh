@@ -21,7 +21,13 @@ service deluged start
 service deluge-web restart
 
 # Bring up the firewall.
+apt-get -yd install iptables-persistent
+
 /vagrant/vagrant/firewall.sh
+
+echo "iptables-persistent iptables-persistent/autosave_v4 boolean true" | debconf-set-selections
+echo "iptables-persistent iptables-persistent/autosave_v6 boolean true" | debconf-set-selections
+apt-get -y install iptables-persistent
 
 # Configure and connect to the VPN.
 cp /vagrant/providers/${VPN_PROVIDER}/* /etc/openvpn/
