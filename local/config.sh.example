@@ -1,0 +1,11 @@
+# Controls which VPN service to use. Corresponds to a subdirectory of
+# the providers/ directory.
+VPN_PROVIDER="mullvad"
+
+# The path to store incoming torrents on the host. This folder will be shared
+# with the VM via VirtualBox and Deluge (the torrent client) will store files
+# here as it downloads.
+INCOMING_PATH="incoming/"
+
+# The port to use for torrent traffic.
+TORRENT_PORT=6881
