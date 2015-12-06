@@ -7,18 +7,28 @@ source /vagrant/local/config.sh
 cp /vagrant/deluge/deluged.conf /etc/init/
 cp /vagrant/deluge/deluge-web.conf /etc/init/
 
+# Prevent deluge from auto starting
+echo 'manual' > /etc/init/deluged.override
+echo 'manual' > /etc/init/deluge-web.override
+
 # Install needed software.
 sudo apt-get update
 apt-get -y install squid-deb-proxy-client
 apt-get -y install openvpn resolvconf deluged deluge-web
 
-# Configure deluge.
+# Pre-start deluge (so it sets up .config/deluge)
+service deluged start
+service deluge-web start
+sleep 1
 service deluge-web stop
 service deluged stop
+sleep 1
+
+# Copy config files
 cp /vagrant/deluge/{core,web}.conf /home/vagrant/.config/deluge/
-sed -i "s#{TORRENT_PORT}#${TORRENT_PORT}#g" /home/vagrant/.config/deluge/core.conf
-service deluged start
-service deluge-web restart
+chown vagrant:vagrant /home/vagrant/.config/deluge/{core,web}.conf
+chmod 666 /home/vagrant/.config/deluge/core.conf
+chmod 640 /home/vagrant/.config/deluge/web.conf
 
 # Bring up the firewall.
 apt-get -yd install iptables-persistent

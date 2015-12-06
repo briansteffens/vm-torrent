@@ -11,10 +11,11 @@ for line in File.read("local/config.sh").lines()
 end
 
 Vagrant.configure(2) do |config|
-	config.vm.box = "ubuntu/trusty64"
-	config.vm.hostname = "torrent.box"
-	config.vm.network "forwarded_port", guest: 8112, host: 8112
+    config.vm.box = "ubuntu/trusty64"
+    config.vm.hostname = "torrent.box"
+    config.vm.network "forwarded_port", guest: 8112, host: 8112
 
-	config.vm.provision :shell, path: "vagrant/configure-vm.sh"
-	config.vm.synced_folder incoming_path, "/srv/deluge/incoming"
+    config.vm.synced_folder incoming_path, "/srv/deluge/incoming"
+    config.vm.provision :shell, path: "vagrant/configure-vm.sh"
+    config.vm.provision :shell, path: "vagrant/start-deluge.sh", run: "always"
 end
