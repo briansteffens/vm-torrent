@@ -1,4 +1,4 @@
-torrent-box
+vm-torrent
 ===========
 
 This is a set of configuration files to quickly build a VPN-only virtual machine
@@ -22,8 +22,8 @@ $ sudo apt-get install git virtualbox vagrant
 To download the project, run the following:
 
 ```
-git clone https://github.com/briansteffens/torrent-box
-cd torrent-box
+git clone https://github.com/briansteffens/vm-torrent
+cd vm-torrent
 ```
 
 
@@ -53,7 +53,7 @@ Building the VM
 
 Now that everything is configured, we can try to build the VM. Make sure you're
 in the root of the git repository (probably the folder
-`torrent-box/`) and run:
+`vm-torrent/`) and run:
 
 ```
 $ vagrant up
