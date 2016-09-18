@@ -30,6 +30,15 @@ chown vagrant:vagrant /home/vagrant/.config/deluge/{core,web}.conf
 chmod 666 /home/vagrant/.config/deluge/core.conf
 chmod 640 /home/vagrant/.config/deluge/web.conf
 
+# Configure VPN
+cp /vagrant/providers/${VPN_PROVIDER}/* /etc/openvpn/
+cp /vagrant/local/openvpn.key /etc/openvpn/
+
+SCRIPT_UP="/vagrant/providers/${VPN_PROVIDER}/up"
+if [ -f $SCRIPT_UP ]; then
+    $SCRIPT_UP
+fi
+
 # Bring up the firewall.
 apt-get -yd install iptables-persistent
 
@@ -39,7 +48,5 @@ echo "iptables-persistent iptables-persistent/autosave_v4 boolean true" | debcon
 echo "iptables-persistent iptables-persistent/autosave_v6 boolean true" | debconf-set-selections
 apt-get -y install iptables-persistent
 
-# Configure and connect to the VPN.
-cp /vagrant/providers/${VPN_PROVIDER}/* /etc/openvpn/
-cp /vagrant/local/openvpn.key /etc/openvpn/
+# Connect to VPN
 openvpn --config /etc/openvpn/openvpn.conf --daemon

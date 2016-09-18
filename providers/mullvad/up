@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# openvpn.mullvad.net   # US
+# se.mullvad.net        # Sweden
+# nl.mullvad.net        # Netherlands
+
+IP=`dig openvpn.mullvad.net | \
+    grep -A1 -P '^;; ANSWER SECTION:$' | \
+    tail -n 1 | \
+    awk '{print $NF}'`
+
+sed -i -e "s/{{ ip }}/${IP}/g" /etc/openvpn/openvpn.conf
