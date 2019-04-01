@@ -32,7 +32,7 @@ chmod 640 /home/vagrant/.config/deluge/web.conf
 
 # Configure VPN
 cp /vagrant/providers/${VPN_PROVIDER}/* /etc/openvpn/
-cp /vagrant/local/openvpn.key /etc/openvpn/
+cp /vagrant/local/login.conf /etc/openvpn/
 
 SCRIPT_UP="/vagrant/providers/${VPN_PROVIDER}/up"
 if [ -f $SCRIPT_UP ]; then

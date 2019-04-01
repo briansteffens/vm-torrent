@@ -34,7 +34,7 @@ Before the VM can be built, some configuration must be done. The following files
 must be created:
 
 * __local/config.sh__ - Controls how the VM is built.
-* __local/openvpn.key__ - Your OpenVPN private key.
+* __local/login.conf__ - Your OpenVPN credentials.
 
 An example `config.sh` file is included. Copy and edit it with the
 following:
@@ -44,9 +44,13 @@ $ cp local/config.sh.example local/config.sh
 $ nano local/config.sh
 ```
 
-Your VPN service should have provided you with a private key. Copy that key to
-`local/openvpn.key`.
+An example `login.conf` file is also included. Copy and edit it with
+the following:
 
+```
+$ cp local/login.conf.example local/login.conf
+$ nano local/login.conf
+```
 
 Building the VM
 ===============
